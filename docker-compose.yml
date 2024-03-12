@@ -3,14 +3,19 @@ version: "3"
 
 services:
   xui:
-    image: alireza7/x-ui
+    image: csh0310/x-ui:feat-private-refactor
     container_name: x-ui
-    hostname: yourhostname
+    hostname: jxc
+    command: /bin/sh -c "echo 'Running setting command...'; ./x-ui setting --username $$CONFIG_ACCOUNT --password $$CONFIG_PASSWORD && echo 'Starting x-ui...' && ./x-ui run"
+    ports:
+      - "54321:54321"
     volumes:
       - $PWD/db/:/etc/x-ui/
       - $PWD/cert/:/root/cert/
     environment:
       XRAY_VMESS_AEAD_FORCED: "false"
+      CONFIG_ACCOUNT: csh0101
+      CONFIG_PASSWORD: csh031027
+      XUI_LOG_LEVEL: debug
     tty: true
-    network_mode: host
     restart: unless-stopped

@@ -1,4 +1,4 @@
-#!/bin/shinstall
+#!/bin/sh
 case $1 in
     amd64)
         ARCH="64"
@@ -23,10 +23,10 @@ case $1 in
 esac
 mkdir -p build/bin
 cd build/bin
-wget "https://github.com/XTLS/Xray-core/releases/download/v1.8.8/Xray-linux-${ARCH}.zip"
-unzip "Xray-linux-${ARCH}.zip"
-rm -f "Xray-linux-${ARCH}.zip" geoip.dat geosite.dat LICENSE README.md
-mv xray "xray-linux-${FNAME}"
+wget "https://github.com/XTLS/Xray-core/releases/download/v1.8.8/Xray-macos-${ARCH}.zip"
+unzip "Xray-macos-${ARCH}.zip"
+rm -f "Xray-macos-${ARCH}.zip" geoip.dat geosite.dat LICENSE README.md
+mv xray "xray-darwin-${FNAME}"
 wget "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
 wget "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
 wget -O geoip_IR.dat https://github.com/chocolate4u/Iran-v2ray-rules/releases/latest/download/geoip.dat

@@ -20,7 +20,15 @@ require (
 	gorm.io/gorm v1.25.7
 )
 
-require github.com/chenzhuoyu/iasm v0.9.1 // indirect
+require (
+	github.com/chenzhuoyu/iasm v0.9.1 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/stretchr/testify v1.9.0 // indirect
+	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/pretty v1.2.0 // indirect
+	github.com/tidwall/sjson v1.2.5 // indirect
+)
 
 require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
@@ -65,6 +73,7 @@ require (
 	github.com/sagernet/sing-shadowsocks v0.2.6 // indirect
 	github.com/seiflotfy/cuckoofilter v0.0.0-20220411075957-e3b120b3f5fb // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
+	github.com/tidwall/gjson v1.17.1
 	github.com/tklauser/go-sysconf v0.3.13 // indirect
 	github.com/tklauser/numcpus v0.7.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect

@@ -42,6 +42,8 @@ func runWebServer() {
 
 	var server *web.Server
 
+	// logger.Debug("debug test logger")
+	// fmt.Println("debug test logger")
 	server = web.NewServer()
 	global.SetWebServer(server)
 	err = server.Start()

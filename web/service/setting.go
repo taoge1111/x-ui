@@ -44,7 +44,7 @@ var defaultValueMap = map[string]string{
 	"tgBotLoginNotify":   "false",
 	"tgCpu":              "0",
 	"tgLang":             "en-US",
-	"subEnable":          "false",
+	"subEnable":          "true",
 	"subListen":          "",
 	"subPort":            "2096",
 	"subPath":            "/sub/",

@@ -3,6 +3,7 @@ package sub
 import (
 	"encoding/base64"
 	"strings"
+	"x-ui/logger"
 
 	"github.com/gin-gonic/gin"
 )
@@ -47,6 +48,13 @@ func (a *SUBController) initRouter(g *gin.RouterGroup) {
 	gLink.GET(":subid", a.subs)
 
 	gJson.GET(":subid", a.subJsons)
+
+}
+
+func listRoutes(router *gin.Engine) {
+	for _, route := range router.Routes() {
+		logger.Debugf("Method: %s, Path: %s, Handler: %s\n", route.Method, route.Path, route.Handler)
+	}
 }
 
 func (a *SUBController) subs(c *gin.Context) {

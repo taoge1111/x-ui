@@ -118,6 +118,7 @@ func (s *Server) Start() (err error) {
 	if err != nil {
 		return err
 	}
+	listRoutes(engine)
 
 	certFile, err := s.settingService.GetSubCertFile()
 	if err != nil {

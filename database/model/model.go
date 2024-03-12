@@ -78,3 +78,28 @@ type Client struct {
 	SubID      string `json:"subId" form:"subId"`
 	Reset      int    `json:"reset" form:"reset"`
 }
+
+// todo test this is Ok
+type Outbound struct {
+	Id          int    `json:"id" form:"id" gorm:"primaryKey;autoIncrement"`
+	Protocol    string `json:"protocol"`
+	Settings    string `json:"settings"`
+	Tag         string `json:"tag"`
+	SendThrough string `json:"sendthrough"`
+}
+
+func (i *Outbound) GenXrayOutboundConfig() *xray.OutboundConfig {
+	return &xray.OutboundConfig{
+		Protocol:    i.Protocol,
+		Settings:    json_util.PrettyString(i.Settings),
+		Tag:         i.Tag,
+		SendThrough: json_util.RawString(i.SendThrough),
+	}
+}
+
+// todo simple rules
+type RouterRule struct {
+	Type        string   `json:"type"`
+	InboundTag  []string `json:"inboundTag"`
+	OutboundTag string   `json:"outboundTag"`
+}

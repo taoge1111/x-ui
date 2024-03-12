@@ -229,7 +229,14 @@ func (s *Server) initRouter() (*gin.Engine, error) {
 	s.xui = controller.NewXUIController(g)
 	s.api = controller.NewAPIController(g)
 
+	listRoutes(engine)
+
 	return engine, nil
+}
+func listRoutes(router *gin.Engine) {
+	for _, route := range router.Routes() {
+		logger.Debugf("Method: %s, Path: %s, Handler: %s\n", route.Method, route.Path, route.Handler)
+	}
 }
 
 func (s *Server) startTask() {

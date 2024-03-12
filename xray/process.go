@@ -15,6 +15,8 @@ import (
 	"x-ui/util/common"
 )
 
+// 启动xray的 bianry
+
 func GetBinaryName() string {
 	return fmt.Sprintf("xray-%s-%s", runtime.GOOS, runtime.GOARCH)
 }

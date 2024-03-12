@@ -16,9 +16,10 @@ var isNeedXrayRestart atomic.Bool
 var result string
 
 type XrayService struct {
-	inboundService InboundService
-	settingService SettingService
-	xrayAPI        xray.XrayAPI
+	inboundService  InboundService
+	outboundService OutboundService
+	settingService  SettingService
+	xrayAPI         xray.XrayAPI
 }
 
 func (s *XrayService) IsXrayRunning() bool {
@@ -57,6 +58,7 @@ func RemoveIndex(s []interface{}, index int) []interface{} {
 	return append(s[:index], s[index+1:]...)
 }
 
+// todo GetXrayConfig
 func (s *XrayService) GetXrayConfig() (*xray.Config, error) {
 	templateConfig, err := s.settingService.GetXrayConfigTemplate()
 	if err != nil {
@@ -76,7 +78,11 @@ func (s *XrayService) GetXrayConfig() (*xray.Config, error) {
 		return nil, err
 	}
 	for _, inbound := range inbounds {
+
 		if !inbound.Enable {
+			continue
+		}
+		if xrayConfig.IsExistInbound(inbound.Tag) {
 			continue
 		}
 		// get settings clients
@@ -161,7 +167,38 @@ func (s *XrayService) GetXrayConfig() (*xray.Config, error) {
 		inboundConfig := inbound.GenXrayInboundConfig()
 		xrayConfig.InboundConfigs = append(xrayConfig.InboundConfigs, *inboundConfig)
 	}
+	outboudsConfigs, err := s.GetAllOutboundsConfig()
+	if err != nil {
+		return nil, err
+	}
+
+	for _, outboundConfig := range outboudsConfigs {
+		if xrayConfig.IsExistOutbound(outboundConfig.Tag) {
+			continue
+		}
+		xrayConfig.OutboundConfigs = append(xrayConfig.OutboundConfigs, outboundConfig)
+	}
+
 	return xrayConfig, nil
+}
+
+func (s *XrayService) GetAllOutboundsConfig() ([]xray.OutboundConfig, error) {
+
+	xrayOutboundConfigs := make([]xray.OutboundConfig, 0)
+
+	outbounds, err := s.outboundService.GetAllOutbounds()
+	if err != nil {
+		return nil, err
+	}
+	/**
+	this simple implement method just for simple outbounds, be like this:
+	**/
+	//todo support full type outbounds.
+	for _, outbound := range outbounds {
+		xrayOutboundConfig := outbound.GenXrayOutboundConfig()
+		xrayOutboundConfigs = append(xrayOutboundConfigs, *xrayOutboundConfig)
+	}
+	return xrayOutboundConfigs, nil
 }
 
 func (s *XrayService) GetXrayTraffic() ([]*xray.Traffic, []*xray.ClientTraffic, error) {

@@ -1,4 +1,4 @@
-#!/bin/shinstall
+#!/bin/sh
 case $1 in
     amd64)
         ARCH="64"

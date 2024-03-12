@@ -10,7 +10,7 @@ type Config struct {
 	RouterConfig    json_util.RawMessage `json:"routing"`
 	DNSConfig       json_util.RawMessage `json:"dns"`
 	InboundConfigs  []InboundConfig      `json:"inbounds"`
-	OutboundConfigs json_util.RawMessage `json:"outbounds"`
+	OutboundConfigs []OutboundConfig     `json:"outbounds"`
 	Transport       json_util.RawMessage `json:"transport"`
 	Policy          json_util.RawMessage `json:"policy"`
 	API             json_util.RawMessage `json:"api"`
@@ -18,6 +18,24 @@ type Config struct {
 	Reverse         json_util.RawMessage `json:"reverse"`
 	FakeDNS         json_util.RawMessage `json:"fakedns"`
 	Observatory     json_util.RawMessage `json:"observatory"`
+}
+
+func (c *Config) IsExistInbound(Tag string) bool {
+	for _, inboundConfig := range c.InboundConfigs {
+		if Tag == inboundConfig.Tag {
+			return true
+		}
+	}
+	return false
+}
+
+func (c *Config) IsExistOutbound(Tag string) bool {
+	for _, outBoundConfig := range c.OutboundConfigs {
+		if Tag == outBoundConfig.Tag {
+			return true
+		}
+	}
+	return false
 }
 
 func (c *Config) Equals(other *Config) bool {
@@ -38,8 +56,11 @@ func (c *Config) Equals(other *Config) bool {
 	if !bytes.Equal(c.DNSConfig, other.DNSConfig) {
 		return false
 	}
-	if !bytes.Equal(c.OutboundConfigs, other.OutboundConfigs) {
-		return false
+
+	for i, outbound := range c.OutboundConfigs {
+		if !outbound.Equals(&other.OutboundConfigs[i]) {
+			return false
+		}
 	}
 	if !bytes.Equal(c.Transport, other.Transport) {
 		return false

@@ -88,8 +88,9 @@ type Release struct {
 }
 
 type ServerService struct {
-	xrayService    XrayService
-	inboundService InboundService
+	xrayService     XrayService
+	inboundService  InboundService
+	outboundService OutboundService
 }
 
 func (s *ServerService) GetStatus(lastStatus *Status) *Status {

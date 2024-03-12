@@ -14,3 +14,7 @@ release/
 /release.sh
 /x-ui
 .DS_Store
+/db/*
+.cert
+x-ui.db
+__debug*

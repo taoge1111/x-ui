@@ -55,6 +55,30 @@ func (x *XrayAPI) Close() {
 	x.isConnected = false
 }
 
+func (x *XrayAPI) AddOutbound(outbound []byte) error {
+	client := *x.HandlerServiceClient
+	conf := new(conf.OutboundDetourConfig)
+	err := json.Unmarshal(outbound, conf)
+	if err != nil {
+		logger.Debug("Failed to unmarshal outbound:", err)
+		return err
+	}
+	config, err := conf.Build()
+	if err != nil {
+		logger.Debug("Failed to build outbound Detur:", err)
+		return err
+	}
+
+	outboundConfig := command.AddOutboundRequest{Outbound: config}
+
+	if resp, err := client.AddOutbound(context.Background(), &outboundConfig); err != nil {
+		return err
+	} else {
+		logger.Debug(resp.String())
+	}
+	return err
+}
+
 func (x *XrayAPI) AddInbound(inbound []byte) error {
 	client := *x.HandlerServiceClient
 
@@ -79,6 +103,14 @@ func (x *XrayAPI) AddInbound(inbound []byte) error {
 func (x *XrayAPI) DelInbound(tag string) error {
 	client := *x.HandlerServiceClient
 	_, err := client.RemoveInbound(context.Background(), &command.RemoveInboundRequest{
+		Tag: tag,
+	})
+	return err
+}
+
+func (x *XrayAPI) DelOutbound(tag string) error {
+	client := *x.HandlerServiceClient
+	_, err := client.RemoveOutbound(context.Background(), &command.RemoveOutboundRequest{
 		Tag: tag,
 	})
 	return err

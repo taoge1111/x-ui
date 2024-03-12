@@ -40,8 +40,13 @@ func InitLogger(level logging.Level) {
 	backendFormatter := logging.NewBackendFormatter(backend, format)
 	backendLeveled := logging.AddModuleLevel(backendFormatter)
 	backendLeveled.SetLevel(level, "x-ui")
-	newLogger.SetBackend(backendLeveled)
 
+	stderrBackend := logging.NewLogBackend(os.Stderr, "", 0)
+	stderrBackendFormatter := logging.NewBackendFormatter(stderrBackend, format)
+	stderrBackendLeveled := logging.AddModuleLevel(stderrBackendFormatter)
+	stderrBackendLeveled.SetLevel(level, "x-ui")
+	// newLogger.SetBackend(backendLeveled)
+	logging.SetBackend(stderrBackendLeveled, backendLeveled)
 	logger = newLogger
 }
 
