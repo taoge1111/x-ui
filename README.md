@@ -9,15 +9,6 @@
 
 > **Disclaimer:** This project is only for personal learning and communication, please do not use it for illegal purposes, please do not use it in a production environment
 
-**If you think this project is helpful to you, you may wish to give a**:star2:
-
-<img width="125" alt="image"
-src="https://github.com/alireza0/x-ui/assets/115543613/dd4f10dd-8bb0-40cf-846f-1fe1de7a6275">
-
-- USDT (TRC20): `TYTq73Gj6dJ67qe58JVPD9zpjW2cc9XgVz`
-- Tezos (XTZ):
-`tz2Wnh2SsY1eezXrcLChu6idWpgdHzUFQcts`
-
 
 ## Quick Overview
 | Features                               |      Enable?       |
@@ -34,7 +25,7 @@ src="https://github.com/alireza0/x-ui/assets/115543613/dd4f10dd-8bb0-40cf-846f-1
 | Search in Deep                         | :heavy_check_mark: |
 | Dark/Light Theme                       | :heavy_check_mark: |
 
-  
+
 ## Install & Upgrade to Latest Version
 
 ```sh
@@ -53,7 +44,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.s
 
 <details>
   <summary>Click for details</summary>
-  
+
 ### Usage
 
 1. To download the latest version of the compressed package directly to your server, run the following command:
